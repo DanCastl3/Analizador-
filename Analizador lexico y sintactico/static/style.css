@@ -1,0 +1,189 @@
+/* Estilo general */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1a1a2e; /* Fondo azul oscuro */
+    color: #eaeaea; /* Texto claro */
+    margin: 0;
+    padding: 0;
+}
+
+/* Contenedor principal */
+.container {
+    max-width: 800px; /* Ampliar el contenedor para más contenido */
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #16213e; /* Azul oscuro intermedio */
+    border-radius: 12px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4); /* Sombra más definida */
+    text-align: center; /* Centra el contenido del contenedor */
+}
+
+/* Título */
+h1 {
+    text-align: center;
+    color: #e94560; /* Rojo claro */
+    font-size: 1.8em; /* Reducir tamaño de fuente */
+    margin-bottom: 20px;
+}
+
+/* Formulario */
+form {
+    background-color: #0f3460; /* Azul muy oscuro */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4); /* Sombra oscura */
+    margin-bottom: 20px;
+}
+
+/* Texto 'expresión' */
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 8px;
+    color: #eaeaea; /* Texto claro */
+}
+
+textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #3d3d3d; /* Borde gris oscuro */
+    border-radius: 6px;
+    resize: vertical;
+    min-height: 100px;
+    margin-bottom: 15px;
+    background-color: #1b1b2f; /* Fondo azul oscuro */
+    color: #eaeaea; /* Texto claro */
+    font-family: Arial, sans-serif;
+}
+
+input[type="submit"] {
+    background-color: #e94560; /* Rojo oscuro */
+    color: #ffffff;
+    padding: 10px 20px; /* Ajustar padding */
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 1em;
+    transition: background-color 0.3s ease;
+}
+
+input[type="submit"]:hover {
+    background-color: #c0392b; /* Efecto hover más oscuro */
+}
+
+/* Contenedor de tablas */
+.table-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Tablas generales */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #1b1b2f; /* Fondo oscuro para tablas */
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 10px 12px; /* Ajustar el padding para mejorar legibilidad */
+    border: 1px solid #3d3d3d; /* Borde gris oscuro */
+    text-align: left;
+    font-size: 1em; /* Ajustar tamaño de fuente */
+}
+
+th {
+    background-color: #e94560; /* Rojo oscuro para encabezados */
+    color: #ffffff;
+    font-weight: normal;
+}
+
+tr:nth-child(even) {
+    background-color: #222831; /* Fondo de filas pares más oscuro */
+}
+
+tr:hover {
+    background-color: #393e46; /* Resaltado al pasar el ratón */
+}
+
+/* Tabla de resultados léxicos */
+.table-token {
+    flex: 1;
+    background-color: #16213e; /* Fondo azul oscuro intermedio */
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    margin: 0 5px;
+}
+
+/* Tabla del resultado sintáctico */
+.result-sintactico {
+    background-color: #1b1b2f; /* Fondo oscuro */
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 20px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+}
+
+/* Estilo del texto del análisis sintáctico */
+pre {
+    text-align: left;
+    background-color: #0f3460; /* Fondo oscuro */
+    color: #eaeaea; /* Texto claro */
+    padding: 15px;
+    border-radius: 8px;
+    font-family: Consolas, monospace; /* Fuente monospace para código */
+    white-space: pre-wrap; /* Permite que el contenido se ajuste */
+}
+
+/* Mensajes de error o información */
+.error {
+    background-color: #ff6b6b; /* Rojo claro para errores */
+    border-left: 6px solid #e94560;
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 6px;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+/* Mensajes de información */
+.message {
+    background-color: #0f3460;
+    border-left: 6px solid #e94560;
+    margin: 20px 0;
+    padding: 10px;
+    border-radius: 6px;
+    color: #eaeaea;
+}
+
+/* Mensajes de éxito */
+.success {
+    background-color: #4CAF50; /* Verde para mensajes de éxito */
+    border-left: 6px solid #3e8e41; /* Sombra más oscura */
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 6px;
+    color: #ffffff; /* Texto blanco */
+    font-weight: bold;
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .table-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    table {
+        max-width: 100%; /* Asegurar que las tablas se adapten a pantallas pequeñas */
+    }
+
+    pre {
+        font-size: 0.85em; /* Reducir un poco el tamaño de fuente para pantallas pequeñas */
+    }
+}

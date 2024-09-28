@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizador Léxico y Sintáctico</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <h1>Analizador Léxico y Sintáctico</h1>
+    <form method="post">
+        <label for="Expresion">Introduce la instruccion a analizar:</label>
+        <textarea name="Expresion" id="Expresion" rows="10" cols="50">{{ expresion if expresion else '' }}</textarea>
+        <br>
+        <input type="submit" value="Analizar">
+    </form>
+    
+    <div class="contenedor">
+        {% if error_message %}
+            <div class="error">
+                <h3>Error Encontrado:</h3>
+                <p>{{ error_message }}</p>
+            </div>
+        {% endif %}
+
+        {% if success_message %}
+            <div class="success">
+                <h3>¡Análisis Completo Sin Errores!</h3>
+                
+            </div>
+        {% endif %}
+        
+        {% if tokens %}
+            <h3>Resultado del Análisis Léxico:</h3>
+            <table>
+                <tr>
+                    <th>Token</th>
+                    <th>Lexema</th>
+                    <th>Línea</th>
+                </tr>
+                {% for Token, Lexema, Linea in tokens %}
+                <tr>
+                    <td>{{ Token }}</td>
+                    <td>{{ Lexema }}</td>
+                    <td>{{ Linea }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+
+        {% if contador %}
+            <h3>Contador de Tokens:</h3>
+            <table>
+                <tr>
+                    <th>Tipo de Token</th>
+                    <th>Count</th>
+                </tr>
+                {% for tipo, count in contador.items() %}
+                <tr>
+                    <td>{{ tipo }}</td>
+                    <td>{{ count }}</td>
+                </tr>
+                {% endfor %}
+            </table>
+        {% endif %}
+        
+        {% if sintactico_result %}
+            <h3>Resultado del Análisis Sintáctico:</h3>
+            <pre>{{ sintactico_result }}</pre>
+        {% endif %}
+    </div>
+</body>
+</html>
