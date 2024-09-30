@@ -64,7 +64,7 @@ def t_newline(t):
     r'\n+'
     t.lexer.lineno += len(t.value)
     if t.lexer.lineno > 3:
-        t.lexer.skip(len(t.value))  # Ignorar el resto del contenido después de 3 líneas
+        t.lexer.skip(len(t.value))  
 
 t_ignore = ' \t\r'
 
@@ -92,15 +92,27 @@ def p_statement(p):
                  | FOR PABIERTO ID OPERADOR NUMERO PCERRADO LLAVE_ABIERTA statements LLAVE_CERRADA
                  | LLAVE_ABIERTA statements LLAVE_CERRADA
                  | ID OPERADOR NUMERO SIMBOLO
-                 | SYSTEM DOT OUT PABIERTO CADENA PCERRADO SIMBOLO'''
-    if len(p) == 4:  # Caso para 'ID = SIMBOLO'
+                 | SYSTEM DOT OUT DOT PRINTLN PABIERTO CADENA PCERRADO SIMBOLO 
+                 | INT ID OPERADOR NUMERO SIMBOLO  
+                 | ID INCREMENTO SIMBOLO 
+                 | NUMERO POSITIVO NUMERO SIMBOLO  
+                 | ID MENOR_IGUAL NUMERO SIMBOLO  
+    '''
+    if len(p) == 4:  
         p[0] = ('statement', p[1], p[2], p[3])
-    elif len(p) == 10:  # Caso para el bucle for
-        p[0] = ('for_loop', p[3], p[5], p[7])  # 'ID', 'NUMERO', 'statements'
-    elif len(p) == 7:  # Caso para 'System.out.println("...");'
+    elif len(p) == 10:  
+        p[0] = ('for_loop', p[3], p[5], p[7])  
+    elif len(p) == 7:  
         p[0] = ('print', p[5])
+    elif len(p) == 5:  
+        p[0] = ('declare', p[1], p[2], p[4])
+    elif len(p) == 4:  
+        p[0] = ('increment', p[1])
+    elif len(p) == 6:  
+        p[0] = ('addition', p[1], p[3])
     else:
         p[0] = ('statement', p[2])
+
 
 def p_empty(p):
     '''empty : '''
@@ -109,7 +121,6 @@ def p_empty(p):
 def p_error(p):
     if p:
         if p.lineno > 3:
-            # Si se produce un error después de la tercera línea, no lo reportes
             return
         error_message = f"Error sintáctico: Token inesperado '{p.value}' en la línea {p.lineno}"
         parser.errors.append(error_message)
@@ -117,7 +128,7 @@ def p_error(p):
         parser.errors.append("Error sintáctico: Entrada incompleta o inesperada al final")
 
 parser = yacc.yacc()
-parser.errors = []
+
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -125,12 +136,12 @@ def index():
     sintactico_result = None
     result_lexema = []
     contador = {}
-    success_message = None  # Mensaje de éxito
+    success_message = None  
 
     if request.method == 'POST':
         expresion = request.form.get('Expresion')
-        lexer.lineno = 1  # Reiniciar el número de línea antes de procesar
-        lexer.errors = []  # Reiniciar lista de errores léxicos
+        lexer.lineno = 1  
+        lexer.errors = [] 
         lexer.input(expresion)
 
         # Proceso de tokens
@@ -156,7 +167,7 @@ def index():
             elif token.type == "CADENA":
                 result_lexema.append(("CADENA", token.value, token.lineno))
 
-        # Contar las ocurrencias de cada tipo de token
+        # Contador de cada tipo de token
         for tipo, palabra, numero in result_lexema:
             if tipo in contador:
                 contador[tipo] += 1
@@ -178,12 +189,12 @@ def index():
             if parser.errors:
                 error_message = "\n".join(parser.errors)
             else:
-                success_message = "Análisis completado sin errores."  # Mensaje de éxito
+                success_message = "Análisis completado sin errores."  
 
         return render_template('index.html', tokens=result_lexema, contador=contador,
                                expresion=expresion, error_message=error_message,
                                sintactico_result=sintactico_result,
-                               success_message=success_message)  # Incluir mensaje de éxito
+                               success_message=success_message)  
 
     return render_template('index.html', tokens=None, contador=None, error_message=None, success_message=None)
 
